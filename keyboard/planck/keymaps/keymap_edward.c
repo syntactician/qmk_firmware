@@ -1,50 +1,82 @@
-#include "keymap_common.h"
+// This is the canonical layout file for the Quantum project. If you want to add another keyboard,
+// this is the style you want to emulate.
+
+#include "planck.h"
+#include "backlight.h"
+
+// Each layer gets a name for readability, which is then used in the keymap matrix below.
+// The underscores don't mean anything - you can have a layer called STUFF or any other name.
+// Layer names don't all need to be of the same length, obviously, and you can also skip them
+// entirely and just use numbers.
+#define _QW 0 /* Qwerty -- for software Dvorak */
+#define _DV 1 /* Dvorak */
+#define _SM 2 /* symbols */
+#define _TK 3 /* tenkey */
+#define _TS 4 /* tenkey symbols */
+#define _FN 5 /* functions */
+#define _PV 6 /* Plover */
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[0] = { /* Jack soft-coded colemak */
-  {KC_TAB,  CM_Q,    CM_W,    CM_F,    CM_P,    CM_G,    CM_J,    CM_L,    CM_U,    CM_Y,    CM_SCLN, KC_BSPC},
-  {KC_ESC,  CM_A,    CM_R,    CM_S,    CM_T,    CM_D,    CM_H,    CM_N,    CM_E,    CM_I,    CM_O,     KC_QUOT},
-  {KC_LSFT, CM_Z,    CM_X,    CM_C,    CM_V,    CM_B,    CM_K,    CM_M,    CM_COMM, CM_DOT,  CM_SLSH, KC_ENT},
-  {BL_STEP, KC_LCTL, KC_LALT, KC_LGUI, FUNC(2),    KC_SPC,   KC_SPC,    FUNC(1),   KC_LEFT, KC_DOWN, KC_UP,  KC_RGHT}
-                                                // Space is repeated to accommadate for both spacebar wiring positions
+[_QW] = { /* Soft Dvorak */
+  {KC_TAB,                KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_RBRC},
+  {MT(MOD_LCTL, KC_ESC),  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
+  {MT(MOD_LSFT, KC_BSPC), KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, MT(MOD_LSFT, KC_ENT)},
+  {M(0),                  KC_LCTL, KC_LALT, KC_LGUI, MO(_TK), KC_SPC,  KC_SPC,  MO(_RS), KC_RGUI, KC_DOWN, KC_UP,   TG(_PV)}
 },
-[1] = { /* Jack hard-coded colemak */
-  {KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC},
-  {KC_ESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,     KC_QUOT},
-  {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT},
-  {KC_FN3, KC_LCTL, KC_LALT, KC_LGUI, FUNC(2),    KC_SPC,   KC_SPC,    FUNC(1),   KC_LEFT, KC_DOWN, KC_UP,  KC_RGHT}
+[_DV] = { /* Hard Dvorak */
+  {KC_TAB,                KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,  KC_RBRC},
+  {MT(MOD_LCTL, KC_ESC),  KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,  KC_SLSH},
+  {MT(MOD_LSFT, KC_BPSC), KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,  MT(MOD_LSFT, KC_ENT)},
+  {M(0),                  KC_LCTL, KC_LALT, KC_LGUI, MO(_TK), KC_SPC,  KC_SPC,  MO(_RS), KC_RGUI, KC_DOWN, KC_UP,   TG(_PV)}
 },
-[2] = { /* Jack RAISE */
-  {KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC},
-  {KC_TRNS, FUNC(3), FUNC(4), LSFT(RSFT(KC_PAUSE)), KC_TRNS, KC_TRNS, KC_TRNS, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS},
-  {KC_TRNS, KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20, KC_TRNS},
-  {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS,   KC_TRNS,  FUNC(1),   KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY}
+[_SM] = { /* symbols */
+  {KC_TILD, KC_GRV,  KC_AT,   KC_PERC, KC_TRNS, KC_TRNS, KC_CIRC, KC_EQL,  KC_X,    KC_DLR,  KC_ASTR, KC_SLSH},
+  {KC_TRNS, KC_AMPR, KC_LCBR, KC_LBRC, KC_LPRN, KC_EXLM, KC_BSLS, KC_RPRN, KC_RBRC, KC_RCBR, KC_PLUS, KC_PIPE},
+  {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS},
+  {KC_TRNS, KC_LTCL, KC_LALT, KC_LGUI, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS}
 },
-[3] = { /* Jack LOWER */
-  {S(KC_GRV),  S(KC_1),    S(KC_2),    S(KC_3),    S(KC_4),    S(KC_5),    S(KC_6),    S(KC_7),    S(KC_8),    S(KC_9),    S(KC_0), KC_BSPC},
-  {KC_TRNS, FUNC(3), FUNC(4), LSFT(RSFT(KC_PAUSE)), KC_TRNS, KC_TRNS, KC_TRNS, S(KC_MINS), S(KC_EQL),  S(KC_LBRC), S(KC_RBRC), S(KC_BSLS)},
-  {KC_TRNS, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_TRNS},
-  {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, FUNC(2),   KC_TRNS,   KC_TRNS,   KC_TRNS, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY}
+[_TK] = { /* tenkey */
+  {KC_TRNS,               KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_7,    KC_8, KC_9,   KC_ASTR, KC_SLSH},
+  {MT(MOD_LCTL, KC_ESC),  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_4,    KC_5, KC_6,   KC_PLUS, KC_MINS},
+  {MT(MOD_LSFT, KC_BSPC), DF(_QW), DF(_DV), MO(_FN), MO(_TS), KC_TRNS, KC_TRNS, KC_1,    KC_2, KC_3,   KC_ENT,  KC_ENT},
+  {KC_TRNS,               KC_LCTL, KC_LALT, KC_LGUI, KC_TRNS, KC_SPC,  KC_SPC,  KC_TRNS, KC_0, KC_DOT, KC_ENT,  KC_TRNS}
+},
+[_TS] = { /* tenkey symbols */
+  {KC_TRNS,               KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_EQL,  KC_X,  KC_DLR,  KC_LPRN, KC_RPRN},
+  {MT(MOD_LCTL, KC_ESC),  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_D,    KC_E,  KC_F,    KC_PLUS, KC_MINS},
+  {MT(MOD_LSFT, KC_BSPC), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_A,    KC_B,  KC_C,    KC_ENT,  KC_ENT},
+  {KC_TRNS,               KC_LCTL, KC_LALT, KC_LGUI, KC_TRNS, KC_SPC,  KC_SPC,  KC_TRNS, M(00), KC_COMM, KC_ENT,  KC_TRNS}
+},
+[_FN] = { /* function */
+  {KC_TRNS,               KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_7,    KC_8, KC_9,   KC_ASTR, KC_SLSH},
+  {MT(MOD_LCTL, KC_ESC),  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_4,    KC_5, KC_6,   KC_PLUS, KC_MINS},
+  {MT(MOD_LSFT, KC_BSPC), DF(_QW), DF(_DV), MO(_FN), MO(_TS), KC_TRNS, KC_TRNS, KC_1,    KC_2, KC_3,   KC_ENT,  KC_ENT},
+  {KC_TRNS,               KC_LCTL, KC_LALT, KC_LGUI, KC_TRNS, KC_SPC,  KC_SPC,  KC_TRNS, KC_0, KC_DOT, KC_ENT,  KC_TRNS}
+},
+[_PV] = { /* Plover */
+  {KC_TAB,  KC_Q, KC_W, KC_E, KC_R, KC_T,   KC_T,   KC_U, KC_I, KC_O, KC_P,    KC_RBRC},
+  {KC_ESC,  KC_Q, KC_S, KC_D, KC_F, KC_T,   KC_T,   KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT},
+  {KC_BSPC, KC_Z, KC_Z, KC_1, KC_1, KC_Z,   KC_Z,   KC_1, KC_1, KC_Z, KC_Z,    KC_ENT},
+  {M(0),    KC_Z, KC_Z, KC_c, KC_V, KC_SPC, KC_SPC, KC_N, KC_M, KC_Z, KC_Z,    KC_TRNS}
 }
 };
 
-
 const uint16_t PROGMEM fn_actions[] = {
-    [1] = ACTION_LAYER_MOMENTARY(2),  // to Fn overlay
-    [2] = ACTION_LAYER_MOMENTARY(3),  // to Fn overlay
-
-    [3] = ACTION_DEFAULT_LAYER_SET(0),
-    [4] = ACTION_DEFAULT_LAYER_SET(1),
 
 };
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) 
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
   // MACRODOWN only works in this function
-    switch(id) {
-      case 0:
-        return MACRODOWN(T(CM_T), END);
-      break;
-    } 
+      switch(id) {
+        case 0:
+          if (record->event.pressed) {
+            register_code(KC_RSFT);
+            backlight_step();
+          } else {
+            unregister_code(KC_RSFT);
+          }
+        break;
+      }
     return MACRO_NONE;
 };
