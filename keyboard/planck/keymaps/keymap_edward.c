@@ -27,7 +27,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_TAB,                KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,  KC_RBRC},
   {MT(MOD_LCTL, KC_ESC),  KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,  KC_SLSH},
   {MT(MOD_LSFT, KC_BPSC), KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,  MT(MOD_LSFT, KC_ENT)},
-  {M(0),                  KC_LCTL, KC_LALT, KC_LGUI, MO(_TK), KC_SPC,  KC_SPC,  MO(_RS), KC_RGUI, KC_DOWN, KC_UP,   TG(_PV)}
+  {M(0),                  KC_LCTL, KC_LALT, KC_LGUI, MO(_TK), KC_SPC,  KC_SPC,  MO(_RS), KC_RGUI, KC_DOWN, KC_UP, TG(_PV)}
 },
 [_SM] = { /* symbols */
   {KC_TILD, KC_GRV,  KC_AT,   KC_PERC, KC_TRNS, KC_TRNS, KC_CIRC, KC_EQL,  KC_X,    KC_DLR,  KC_ASTR, KC_SLSH},
@@ -48,10 +48,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_TRNS,               KC_LCTL, KC_LALT, KC_LGUI, KC_TRNS, KC_SPC,  KC_SPC,  KC_TRNS, M(00), KC_COMM, KC_ENT,  KC_TRNS}
 },
 [_FN] = { /* function */
-  {KC_TRNS,               KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME,    KC_8, KC_9,   KC_ASTR, KC_SLSH},
-  {MT(MOD_LCTL, KC_ESC),  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_LEFT,    KC_5, KC_6,   KC_PLUS, KC_MINS},
-  {MT(MOD_LSFT, KC_BSPC), DF(_QW), DF(_DV), MO(_FN), MO(_TS), KC_TRNS, KC_TRNS, KC_END,    KC_2, KC_3,   KC_ENT,  KC_ENT},
-  {KC_TRNS,               KC_LCTL, KC_LALT, KC_LGUI, KC_TRNS, KC_SPC,  KC_SPC,  KC_TRNS, KC_0, KC_DOT, KC_ENT,  KC_TRNS}
+  {KC_TRNS,               KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, KC_UP,   KC_PGUP, KC_ASTR, KC_SLSH},
+  {MT(MOD_LCTL, KC_ESC),  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_LEFT, KC_P5,   KC_RGHT, KC_PLUS, KC_MINS},
+  {MT(MOD_LSFT, KC_BSPC), DF(_QW), DF(_DV), MO(_FN), MO(_TS), KC_TRNS, KC_TRNS, KC_END,  KC_DOWN, KC_PGDN, KC_ENT,  KC_ENT},
+  {KC_TRNS,               KC_LCTL, KC_LALT, KC_LGUI, KC_TRNS, KC_SPC,  KC_SPC,  KC_TRNS, KC_0,    KC_DOT,  KC_ENT,  KC_TRNS}
 },
 [_PV] = { /* Plover */
   {KC_TAB,  KC_Q, KC_W, KC_E, KC_R, KC_T,   KC_T,   KC_U, KC_I, KC_O, KC_P,    KC_RBRC},
